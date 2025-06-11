@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export const Hero: React.FC = () => {
   const heroRef = useRef<HTMLElement>(null)
@@ -15,16 +16,28 @@ export const Hero: React.FC = () => {
   ]
 
   useEffect(() => {
-    if (!heroRef.current) return
+    if (!heroRef.current || !titleRef.current) return
+
+    gsap.registerPlugin(ScrollTrigger)
 
     // Fade in the first phrase
-    if (titleRef.current) {
-      gsap.fromTo(
-        titleRef.current,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1, delay: 0.5 }
-      )
-    }
+    gsap.fromTo(
+      titleRef.current,
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1, delay: 0.5 }
+    )
+
+    // Text movement and background change on scroll
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    })
+      .to(heroRef.current, { backgroundColor: '#273E47', ease: 'none' }, 0)
+      .to(titleRef.current, { y: -150, scale: 1.2, ease: 'none' }, 0)
 
     const handleScroll = () => {
       const section = heroRef.current!
@@ -76,25 +89,6 @@ export const Hero: React.FC = () => {
           We craft innovative web solutions that transform ideas into powerful digital experiences
         </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <button 
-            className="px-8 py-4 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105"
-            style={{ backgroundColor: '#000' }}
-          >
-            View Our Work
-          </button>
-          
-          <button 
-            className="px-8 py-4 rounded-lg font-medium transition-all duration-300 hover:scale-105"
-            style={{ 
-              border: '2px solid #D8973C',
-              color: '#D8973C'
-            }}
-          >
-            Get in Touch
-          </button>
-        </div>
       </div>
     </section>
   )
