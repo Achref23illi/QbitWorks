@@ -91,6 +91,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const rotateX = (-(y - rect.height / 2) / (rect.height / 2)) * 10
     const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 10
     setTilt({ x: rotateX, y: rotateY })
+
     reflection.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.6), transparent 60%)`
   }
 
@@ -100,6 +101,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     setTilt({ x: 0, y: 0 })
     reflection.style.background = 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.6), transparent 60%)'
   }
+
 
   return (
     <div
