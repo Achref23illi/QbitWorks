@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { TextPlugin } from 'gsap/TextPlugin'
+import { MouseParticles } from './MouseParticles'
 
 export const Hero: React.FC = () => {
   const heroRef = useRef<HTMLElement>(null)
@@ -15,7 +16,8 @@ export const Hero: React.FC = () => {
     'DEVELOPING CUTTING-EDGE TECH'
   ]
 
-  const gold = '#D4AF37'
+  // Main brand colors
+  const colors = ['#FFFFFF', '#D8973C', '#273E47']
 
   // Initialize scroll-triggered text animation
   useEffect(() => {
@@ -25,8 +27,14 @@ export const Hero: React.FC = () => {
     gsap.registerPlugin(ScrollTrigger, TextPlugin)
 
     const updateColors = (index: number) => {
-      const bgColor = index === 0 ? '#ffffff' : gold
-      const textColor = index === 0 ? '#273E47' : '#ffffff'
+      const bgColor = colors[index % colors.length]
+      const textColor =
+        bgColor === '#D8973C'
+          ? '#FFFFFF'
+          : bgColor === '#FFFFFF'
+            ? '#D8973C'
+            : '#FFFFFF'
+
       gsap.to(heroRef.current, { backgroundColor: bgColor, duration: 0.5 })
       gsap.to(titleRef.current, { color: textColor, duration: 0.5 })
     }
@@ -69,6 +77,7 @@ export const Hero: React.FC = () => {
     >
       {/* Background gradient */}
       <div className="absolute inset-0 gradient-move opacity-20" />
+      <MouseParticles containerRef={heroRef} />
 
 
       <div className="flex items-center justify-center h-screen w-screen px-4 text-center relative z-10">
@@ -77,7 +86,7 @@ export const Hero: React.FC = () => {
         <h1
           ref={titleRef}
           className="font-techno text-4xl md:text-6xl lg:text-8xl font-bold leading-tight drop-shadow-lg"
-          style={{ color: '#273E47' }}
+          style={{ color: '#D8973C' }}
         >
           {phrases[0]}
         </h1>
