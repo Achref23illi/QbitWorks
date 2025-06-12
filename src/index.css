@@ -18,3 +18,37 @@
     padding: 0;
   }
 }
+
+@layer utilities {
+  .gradient-move {
+    background: linear-gradient(270deg, #d8973c, #273e47, #d8973c);
+    background-size: 400% 400%;
+    animation: gradientAnimation 12s ease infinite;
+  }
+
+  .shadow-pulse {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    animation: shadowPulse 6s ease-in-out infinite;
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shadowPulse {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.3);
+  }
+}

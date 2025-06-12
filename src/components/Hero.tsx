@@ -9,11 +9,23 @@ export const Hero: React.FC = () => {
 
   const phrases = [
     "BUILDING DIGITAL EXCELLENCE",
-    "CRAFTING INNOVATIVE SOLUTIONS", 
+    "CRAFTING INNOVATIVE SOLUTIONS",
     "TRANSFORMING IDEAS TO REALITY",
     "CREATING POWERFUL EXPERIENCES",
     "DEVELOPING CUTTING-EDGE TECH"
   ]
+
+  const gold = '#D4AF37'
+
+  // Change background and title color when phrase updates
+  useEffect(() => {
+    if (!heroRef.current || !titleRef.current) return
+    const bgColor = currentPhrase === 0 ? '#ffffff' : gold
+    const textColor = currentPhrase === 0 ? '#273E47' : '#ffffff'
+
+    gsap.to(heroRef.current, { backgroundColor: bgColor, duration: 0.5 })
+    gsap.to(titleRef.current, { color: textColor, duration: 0.5 })
+  }, [currentPhrase])
 
   useEffect(() => {
     if (!heroRef.current || !titleRef.current) return
@@ -36,7 +48,6 @@ export const Hero: React.FC = () => {
         scrub: true
       }
     })
-      .to(heroRef.current, { backgroundColor: '#273E47', ease: 'none' }, 0)
       .to(titleRef.current, { y: -150, scale: 1.2, ease: 'none' }, 0)
 
     const handleScroll = () => {
@@ -57,29 +68,18 @@ export const Hero: React.FC = () => {
     <section
       ref={heroRef}
       id="home"
-      className="relative bg-white dark:bg-gray-900"
+      className="relative bg-white dark:bg-gray-900 overflow-hidden"
       style={{ height: `${phrases.length * 100}vh`, paddingTop: '80px' }}
     >
       {/* Background gradient */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 50%, rgba(216, 151, 60, 0.1) 0%, rgba(39, 62, 71, 0.05) 50%, transparent 100%)'
-        }}
-      />
+      <div className="absolute inset-0 gradient-move opacity-20" />
 
       <div className="sticky top-0 flex items-center justify-center h-screen container mx-auto px-4 text-center relative z-10">
         {/* Main title */}
         <h1
           ref={titleRef}
-          className="font-techno text-4xl md:text-6xl lg:text-8xl font-bold mb-8 leading-tight"
-          style={{
-            background: 'linear-gradient(135deg, #D8973C 0%, #273E47 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
-          }}
+          className="font-techno text-4xl md:text-6xl lg:text-8xl font-bold mb-8 leading-tight drop-shadow-lg"
+          style={{ color: '#273E47' }}
         >
           {phrases[currentPhrase]}
         </h1>
