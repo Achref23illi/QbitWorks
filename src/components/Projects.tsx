@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+
 interface Project {
   name: string
   image: string
@@ -78,6 +79,7 @@ const projects: Project[] = [
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const [flipped, setFlipped] = useState(false)
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
+
   const cardRef = useRef<HTMLDivElement>(null)
   const reflectionRef = useRef<HTMLDivElement>(null)
 
@@ -88,18 +90,22 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const rect = card.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
+
     const rotateX = (-(y - rect.height / 2) / (rect.height / 2)) * 10
     const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 10
     setTilt({ x: rotateX, y: rotateY })
+
     reflection.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.6), transparent 60%)`
   }
 
   const reset = () => {
+
     const reflection = reflectionRef.current
     if (!reflection) return
     setTilt({ x: 0, y: 0 })
     reflection.style.background = 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.6), transparent 60%)'
   }
+
 
   return (
     <div
@@ -111,12 +117,14 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       <div className="perspective-1000 w-full h-full relative">
         <div
           ref={cardRef}
+
           className="absolute inset-0 transition-transform duration-700 preserve-3d"
           style={{
             transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y + (flipped ? 180 : 0)}deg)`
           }}
         >
           <div className="absolute inset-0 backface-hidden rounded-xl overflow-hidden shadow-2xl">
+
             <img src={project.image} alt={project.name} className="w-full h-2/3 object-cover" />
             <div className="p-4 bg-white">
               <h3 className="text-lg font-semibold mb-1">{project.name}</h3>
@@ -124,6 +132,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             </div>
           </div>
           <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-xl shadow-2xl flex flex-col items-center justify-center bg-gray-100">
+
             <a
               href={project.github}
               target="_blank"
