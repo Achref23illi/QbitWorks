@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+
 interface Project {
   name: string
   image: string
@@ -101,6 +102,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     reflection.style.background = 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.6), transparent 60%)'
   }
 
+
   return (
     <div
       className="w-72 h-96 mx-4 flex-shrink-0 cursor-pointer"
@@ -114,6 +116,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           className={`absolute inset-0 transition-transform duration-700 preserve-3d ${flipped ? 'rotate-y-180' : ''}`}
         >
           <div className="absolute inset-0 backface-hidden rounded-xl overflow-hidden shadow-2xl">
+
             <img src={project.image} alt={project.name} className="w-full h-2/3 object-cover" />
             <div className="p-4 bg-white">
               <h3 className="text-lg font-semibold mb-1">{project.name}</h3>
@@ -121,6 +124,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             </div>
           </div>
           <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-xl shadow-2xl flex flex-col items-center justify-center bg-gray-100">
+
             <a
               href={project.github}
               target="_blank"
@@ -191,6 +195,7 @@ export const Projects: React.FC = () => {
       <div ref={trackRef} className="flex w-max items-center px-10 space-x-8">
         {projects.map((p) => (
           <ProjectCard key={p.name} project={p} />
+
         ))}
       </div>
     </section>
