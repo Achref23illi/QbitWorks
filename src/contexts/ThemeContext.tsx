@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { themeConfig, Theme } from '@/config/theme.config'
+import { themeConfig } from '@/config/theme.config'
+import type { Theme } from '@/config/theme.config'
 
 type ThemeContextType = {
   theme: Theme | 'system'
