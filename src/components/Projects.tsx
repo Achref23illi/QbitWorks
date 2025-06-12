@@ -78,6 +78,8 @@ const projects: Project[] = [
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const [flipped, setFlipped] = useState(false)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+
   const cardRef = useRef<HTMLDivElement>(null)
   const reflectionRef = useRef<HTMLDivElement>(null)
 
@@ -88,17 +90,19 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const rect = card.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
-    const rotateX = -(y - rect.height / 2) / (rect.height / 2) * 10
-    const rotateY = (x - rect.width / 2) / (rect.width / 2) * 10
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+
+    const rotateX = (-(y - rect.height / 2) / (rect.height / 2)) * 10
+    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 10
+    setTilt({ x: rotateX, y: rotateY })
+
     reflection.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.6), transparent 60%)`
   }
 
   const reset = () => {
-    const card = cardRef.current
+
     const reflection = reflectionRef.current
-    if (!card || !reflection) return
-    card.style.transform = 'rotateX(0deg) rotateY(0deg)'
+    if (!reflection) return
+    setTilt({ x: 0, y: 0 })
     reflection.style.background = 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.6), transparent 60%)'
   }
 
@@ -113,7 +117,11 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       <div className="perspective-1000 w-full h-full relative">
         <div
           ref={cardRef}
-          className={`absolute inset-0 transition-transform duration-700 preserve-3d ${flipped ? 'rotate-y-180' : ''}`}
+
+          className="absolute inset-0 transition-transform duration-700 preserve-3d"
+          style={{
+            transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y + (flipped ? 180 : 0)}deg)`
+          }}
         >
           <div className="absolute inset-0 backface-hidden rounded-xl overflow-hidden shadow-2xl">
 
@@ -195,7 +203,6 @@ export const Projects: React.FC = () => {
       <div ref={trackRef} className="flex w-max items-center px-10 space-x-8">
         {projects.map((p) => (
           <ProjectCard key={p.name} project={p} />
-
         ))}
       </div>
     </section>
