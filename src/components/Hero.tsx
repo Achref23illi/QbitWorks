@@ -5,7 +5,7 @@ import { TextPlugin } from 'gsap/TextPlugin'
 import { MouseParticles } from './MouseParticles'
 
 export const Hero: React.FC = () => {
-  const heroRef = useRef<HTMLElement>(null)
+  const heroRef = useRef<HTMLElement | null>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
 
   const phrases = [
