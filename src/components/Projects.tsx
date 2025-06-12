@@ -53,13 +53,16 @@ const projects: Project[] = [
   {
     name: 'Project Seven',
     image: '/src/assets/images/placeholder.svg',
-    stack: 'Python, Flask',
-    github: 'https://github.com/example/project-seven'
-  },
-  {
-    name: 'Project Eight',
-    image: '/src/assets/images/placeholder.svg',
-    stack: 'Django, PostgreSQL',
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+    const rotateX = (-(y - rect.height / 2) / (rect.height / 2)) * 10
+    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 10
+    setTilt({ x: rotateX, y: rotateY })
+    if (!reflection) return
+    setTilt({ x: 0, y: 0 })
+          className="absolute inset-0 transition-transform duration-700 preserve-3d"
+          style={{
+            transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y + (flipped ? 180 : 0)}deg)`
+          }}
     github: 'https://github.com/example/project-eight'
   },
   {
