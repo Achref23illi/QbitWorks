@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { TextPlugin } from 'gsap/TextPlugin'
 
 export const Hero: React.FC = () => {
   const heroRef = useRef<HTMLElement>(null)
@@ -25,12 +26,17 @@ export const Hero: React.FC = () => {
 
     gsap.to(heroRef.current, { backgroundColor: bgColor, duration: 0.5 })
     gsap.to(titleRef.current, { color: textColor, duration: 0.5 })
+    gsap.to(titleRef.current, {
+      text: phrases[currentPhrase],
+      duration: 1,
+      ease: 'power2.out'
+    })
   }, [currentPhrase])
 
   useEffect(() => {
     if (!heroRef.current || !titleRef.current) return
 
-    gsap.registerPlugin(ScrollTrigger)
+    gsap.registerPlugin(ScrollTrigger, TextPlugin)
 
     // Fade in the first phrase
     gsap.fromTo(
@@ -74,20 +80,16 @@ export const Hero: React.FC = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 gradient-move opacity-20" />
 
-      <div className="sticky top-0 flex items-center justify-center h-screen container mx-auto px-4 text-center relative z-10">
+      <div className="sticky top-0 flex items-center justify-center h-screen w-screen px-4 text-center relative z-10">
         {/* Main title */}
         <h1
           ref={titleRef}
-          className="font-techno text-4xl md:text-6xl lg:text-8xl font-bold mb-8 leading-tight drop-shadow-lg"
+          className="font-techno text-4xl md:text-6xl lg:text-8xl font-bold leading-tight drop-shadow-lg"
           style={{ color: '#273E47' }}
         >
           {phrases[currentPhrase]}
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-12 font-light">
-          We craft innovative web solutions that transform ideas into powerful digital experiences
-        </p>
 
       </div>
     </section>
