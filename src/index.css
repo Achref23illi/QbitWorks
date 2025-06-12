@@ -47,6 +47,12 @@
   .rotate-y-180 {
     transform: rotateY(180deg);
   }
+
+  .card-reflection {
+    mix-blend-mode: screen;
+    transition: opacity 0.2s ease;
+    opacity: 0.6;
+  }
 }
 
 @keyframes gradientAnimation {
