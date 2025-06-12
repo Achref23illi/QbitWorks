@@ -21,6 +21,7 @@ export const Hero: React.FC = () => {
   useEffect(() => {
     if (!heroRef.current || !titleRef.current) return
 
+
     gsap.registerPlugin(ScrollTrigger, TextPlugin)
 
     const updateColors = (index: number) => {
@@ -29,6 +30,7 @@ export const Hero: React.FC = () => {
       gsap.to(heroRef.current, { backgroundColor: bgColor, duration: 0.5 })
       gsap.to(titleRef.current, { color: textColor, duration: 0.5 })
     }
+
 
     updateColors(0)
 
@@ -68,7 +70,9 @@ export const Hero: React.FC = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 gradient-move opacity-20" />
 
+
       <div className="flex items-center justify-center h-screen w-screen px-4 text-center relative z-10">
+
         {/* Main title */}
         <h1
           ref={titleRef}
