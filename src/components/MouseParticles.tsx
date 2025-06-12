@@ -10,13 +10,13 @@ interface Particle {
 }
 
 interface Props {
-  containerRef: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLElement | null>
 }
 
 export const MouseParticles: React.FC<Props> = ({ containerRef }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const particles = useRef<Particle[]>([])
-  const frame = useRef<number>()
+  const frame = useRef<number | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current

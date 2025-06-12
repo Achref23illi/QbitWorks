@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { assetsConfig } from '@/config/assets.config'
 
@@ -137,9 +137,9 @@ export const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-10">
             <ul className="flex items-center space-x-10">
               {navItems.map((item, index) => (
-                <li 
+                <li
                   key={item.label}
-                  ref={el => menuItemsRef.current[index] = el}
+                  ref={el => { menuItemsRef.current[index] = el }}
                   className="relative"
                   onMouseEnter={(e) => handleMenuItemHover(e.currentTarget, true)}
                   onMouseLeave={(e) => handleMenuItemHover(e.currentTarget, false)}

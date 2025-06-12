@@ -5,7 +5,8 @@ import {
   FaReact,
   FaNodeJs,
   FaGitAlt,
-  FaDocker
+  FaDocker,
+  FaAws
 } from 'react-icons/fa'
 import {
   SiTypescript,
@@ -15,13 +16,13 @@ import {
   SiNextdotjs,
   SiGraphql,
   SiMongodb,
-  SiPostgresql,
-  SiAmazonaws
+  SiPostgresql
 } from 'react-icons/si'
+import type { IconType } from 'react-icons'
 
 interface Tech {
   name: string
-  icon: React.ComponentType<{ className?: string }>
+  icon: IconType
   color: string
 }
 
@@ -37,7 +38,7 @@ const techs: Tech[] = [
   { name: 'MongoDB', icon: SiMongodb, color: '#4DB33D' },
   { name: 'PostgreSQL', icon: SiPostgresql, color: '#336791' },
   { name: 'Docker', icon: FaDocker, color: '#2496ED' },
-  { name: 'AWS', icon: SiAmazonaws, color: '#FF9900' },
+  { name: 'AWS', icon: FaAws, color: '#FF9900' },
   { name: 'Git', icon: FaGitAlt, color: '#F05032' },
 ]
 
@@ -125,7 +126,7 @@ export const TechStack: React.FC = () => {
         <h2 className="text-3xl font-techno font-bold text-center mb-12">Tech Stack</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 justify-items-center">
           {techs.map((tech, i) => (
-            <div key={tech.name} ref={el => (cardRefs.current[i] = el)}>
+            <div key={tech.name} ref={el => { cardRefs.current[i] = el }}>
               <StackCard tech={tech} />
             </div>
           ))}
